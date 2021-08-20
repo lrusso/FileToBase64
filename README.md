@@ -1,6 +1,6 @@
 # File To Base64
 
-File to Base64 converter.
+File to Base64 converter in JavaScript.
 
 ## Web:
 
