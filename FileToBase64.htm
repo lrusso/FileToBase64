@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>File to Base64 Converter</title>
+		<style>
+			html,body{background-color:#f7fafc;font-family:Arial;-webkit-user-select:none;-moz-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none;margin:0;padding:0}
+			div{display:inline-block;width:100%}
+			textarea{display:inline-block;background-color:white;border:1px solid #e2e8f0;width:99%;resize:none}
+			textarea:disabled{background-color:#CECECE;border:1px solid #e2e8f0}
+			input[type=file]{padding:10px}
+		</style>
+	</head>
+	<body>
+		<div>
+			<input type="file" id="fileInserter" onchange="convertToBase64(document.getElementById('fileInserter').files[0]);"/>
+		</div>
+		<div>
+			<textarea id="out" spellcheck="false" rows="25" cols="80" readonly disabled></textarea>
+		</div>
+		<script>
+			function convertToBase64(file)
+				{
+				try
+					{
+					// ENABLING THE OUT TEXTAREA
+					document.getElementById("out").disabled = false;
+
+					// FOCUSING THE OUT TEXTAREA
+					document.getElementById("out").focus();
+
+					// UPDATING THE OUT TEXTAREA
+					document.getElementById("out").value = "Please wait...";
+
+					// CREATING THE FILE READER
+					var filereader = new FileReader();
+					filereader.file_name = file.name;
+					filereader.onload = function()
+						{
+						// GETTING THE FILE CONTENT
+						var content = this.result;
+
+						// INSERTING THE FILE AS A BASE64 STRING IN THE TEXTAREA
+						document.getElementById("out").value = content;
+
+						// FOCUSING THE OUT TEXTAREA
+						document.getElementById("out").focus();
+
+						// SELECTING THE OUT TEXTAREA TEXT
+						document.getElementById("out").select();
+
+						// CLEARING THE SELECTED FILE VALUE
+						document.getElementById("fileInserter").value = null;
+						};
+
+					// READING THE FILE
+					filereader.readAsDataURL(file);
+
+					// CLEARING THE SELECTED FILE VALUE
+					document.getElementById("fileInserter").value = null;
+					}
+					catch(err)
+					{
+					alert(err)
+					}
+				}
+
+			// CLEARING THE SELECTED FILE VALUE
+			document.getElementById("fileInserter").value = null;
+
+			// CLEARING THE OUT TEXTAREA
+			document.getElementById("out").value = "";
+
+			// DISABLING THE OUT TEXTAREA
+			document.getElementById("out").disabled = true;
+		</script>
+	</body>
+</html>
